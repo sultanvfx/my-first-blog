@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Django Girls blog</title>
-</head>
-    <body>
-        <div>
-            <h1><a href="/">Django Girls Blog</a></h1>
-        </div>
-        {% for post in posts %}
-            <div>
+{% extends 'blog/base.html' %}  <!-- Connecting this .html file with the template file at blog/base.html -->
+{% block content %}  <!-- here, "block" tag is same as in the base.html template file. It means here to include the html code below inside the "block" area of the blog/base.html file -->
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
                 <p>published: {{ post.published_date }}</p>
-                <h1><a href="#"> {{ post.title }}</a></h1>
-                <p>{{ post.text|linebreaksbr }}</p>  <!-- here linebreaksbr means interpret newline in the post.text as new paragraph -->
             </div>
-        {% endfor %}
-    </body>
-</html>
+            <!-- <h1><a href="">{{ post.title }}</a></h1> -->
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+
